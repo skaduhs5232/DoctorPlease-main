@@ -125,7 +125,9 @@ public class LetterManager : MonoBehaviour
 				Debug.Log("end");
 				endScreen.SetActive(true);
 				GetComponent<SoundManager>().StopClock();
-				finalScoreText.text = "Final Severace: $" + scorePounds.ToString() + "." + (scorePennies < 10 ? "0" : "") + scorePennies.ToString();
+				float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+
+				finalScoreText.text = "Credibilidade Final: " + totalScore.ToString("F2");
 			}
 		}
 	}
@@ -187,7 +189,7 @@ public class LetterManager : MonoBehaviour
 			}
 		}
 		else
-			Debug.LogWarning("Tried to release letter that isn't held.");
+			Debug.LogWarning("Carta deu pau.");
 	}
 
 	public void SetHoveredBin(EBinType type)
@@ -200,20 +202,26 @@ public class LetterManager : MonoBehaviour
 		if (hoveredBin == type)
 			hoveredBin = EBinType.None;
 		else
-			Debug.LogWarning("Tried to remove bin type that isn't hovered.");
+			Debug.LogWarning("Lixeira deu pau.");
 	}
 
 	void SetScore(int delta)
 	{
 		GetComponent<SoundManager>().PlaySound(ESound.Correct);
 
+		// Atualizando scorePounds e scorePennies
 		scorePennies += delta;
 		if (scorePennies >= 100)
 		{
 			scorePounds++;
 			scorePennies -= 100;
 		}
-		scoreText.text = "Ganhos: R$" + scorePounds.ToString() + "." + (scorePennies < 10 ? "0" : "") + scorePennies.ToString();
+
+		// Criando a variável total que combina pounds e pennies, e multiplicando por 10
+		float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+
+		// Exibindo o valor total multiplicado por 10 no scoreText
+		scoreText.text = "Credibilidade: " + totalScore.ToString("F2");
 
 		if (scorePennies >= 12 && !spawnedFakeStampNote)
 		{
@@ -299,11 +307,13 @@ public class LetterManager : MonoBehaviour
 		cross5.SetActive(false);
 		scorePennies = 0;
 		scorePounds = 0;
-		scoreText.text = "Ganhos: R$" + scorePounds.ToString() + "." + (scorePennies < 10 ? "0" : "") + scorePennies.ToString();
+		float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+
+		scoreText.text = "Credibilidade: " + totalScore.ToString("F2");
 		spawnedFakeStampNote = false;
 		spawnedWrongAddressNote = false;
 		spawnedWrongCityNote = false;
-		
+
 
 		letterValueCount = 0;
 

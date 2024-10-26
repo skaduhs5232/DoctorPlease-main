@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public enum EState
 {
@@ -53,6 +54,7 @@ public class LetterManager : MonoBehaviour
 	bool spawnedFakeStampNote = false;
 	bool spawnedWrongAddressNote = false;
 	bool spawnedWrongCityNote = false;
+	bool readytocontinue = false;
 
 	public int scorePennies { get; private set; } = 0;
 	public int scorePounds { get; private set; } = 0;
@@ -78,7 +80,7 @@ public class LetterManager : MonoBehaviour
 
 			//guarantee that no letter spawns for first 10 seconds after a note appearing
 			//spawn a letter within 2 seconds if no other letters
-			if (!initialSpawnCountdown && letterValueCount < .5f && letterSpawnCountdown > 2f)
+			if (!initialSpawnCountdown && letterValueCount < .5f && letterSpawnCountdown > 2f || !readytocontinue)
 			{
 				letterSpawnCountdown = Random.Range(.25f, 2f);
 			}
@@ -205,7 +207,7 @@ public class LetterManager : MonoBehaviour
 			Debug.LogWarning("Lixeira deu pau.");
 	}
 
-	void SetScore(int delta)
+	async void SetScore(int delta)
 	{
 		GetComponent<SoundManager>().PlaySound(ESound.Correct);
 
@@ -228,30 +230,66 @@ public class LetterManager : MonoBehaviour
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedFakeStampNote = true;
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
-			note.transform.position = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.1f);
+
+			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.1f);
+			note.transform.position = pos;
+
 			generator.SetDifficulty(1);
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
+
+			await Task.Delay(2000);
+			readytocontinue = false;
+			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
+			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
+			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
+			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
 		}
 		if (scorePennies >= 30 && !spawnedWrongAddressNote)
 		{
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedWrongAddressNote = true;
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
-			note.transform.position = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.2f);
+
+			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.2f);
+			note.transform.position = pos;
+			
 			generator.SetDifficulty(3);
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
+
+			await Task.Delay(2000);
+			readytocontinue = false;
+			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
+			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
+			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
+			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
 		}
 		if (scorePennies >= 55 && !spawnedWrongCityNote)
 		{
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedWrongCityNote = true;
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
-			note.transform.position = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.3f);
+
+			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.3f);
+			note.transform.position = pos;
+
 			generator.SetDifficulty(4);
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
+
+			await Task.Delay(2000);
+			readytocontinue = false;
+			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
+			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
+			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
+			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
 		}
 	}
 
@@ -298,7 +336,7 @@ public class LetterManager : MonoBehaviour
 
 	}
 
-	public void Reset()
+	public async void Reset()
 	{
 		cross1.SetActive(false);
 		cross2.SetActive(false);
@@ -328,9 +366,7 @@ public class LetterManager : MonoBehaviour
 			Destroy(((Dragabble)draggable).gameObject);
 		}
 
-		GetComponent<SoundManager>().PlaySound(ESound.New);
-		GameObject note = (GameObject)Instantiate(Resources.Load("NoteStart"));
-		note.transform.position = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
+    
 		generator.SetDifficulty(0);
 		initialSpawnCountdown = true;
 		letterSpawnCountdown = 10f;
@@ -338,5 +374,26 @@ public class LetterManager : MonoBehaviour
 		gameplayScreen.SetActive(true);
 		startScreen.SetActive(false);
 		endScreen.SetActive(false);
+
+		GetComponent<SoundManager>().PlaySound(ESound.New);
+		GameObject note = (GameObject)Instantiate(Resources.Load("NoteStart"));
+    	Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
+		note.transform.position = pos;
+
+		await Task.Delay(2000);
+		readytocontinue = false;
+    	GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+		Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
+		RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
+		buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
+        buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
+		continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
+	}
+
+	public void OnContinueButtonClick(Button continueButton, GameObject note)
+	{
+		readytocontinue = true;
+		Destroy(continueButton.gameObject);
+		Destroy(note.gameObject);
 	}
 }

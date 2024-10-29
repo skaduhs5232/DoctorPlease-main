@@ -46,7 +46,7 @@ public class LetterManager : MonoBehaviour
 	public GameObject gameplayScreen;
 	public Text finalScoreText;
 
-	float letterSpawnCountdown = 10;
+	float letterSpawnCountdown = 15;
 	bool initialSpawnCountdown = true;
 
 	float letterValueCount = 0;

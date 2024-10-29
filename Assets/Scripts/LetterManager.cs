@@ -238,7 +238,7 @@ public class LetterManager : MonoBehaviour
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
 
-			await Task.Delay(2000);
+			await Task.Delay(700);
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
@@ -260,7 +260,7 @@ public class LetterManager : MonoBehaviour
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
 
-			await Task.Delay(2000);
+			await Task.Delay(700);
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
@@ -282,7 +282,7 @@ public class LetterManager : MonoBehaviour
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
 
-			await Task.Delay(2000);
+			await Task.Delay(700);
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
@@ -380,7 +380,7 @@ public class LetterManager : MonoBehaviour
     	Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
 		note.transform.position = pos;
 
-		await Task.Delay(2000);
+		await Task.Delay(700);
 		readytocontinue = false;
     	GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 		Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
@@ -394,6 +394,5 @@ public class LetterManager : MonoBehaviour
 	{
 		readytocontinue = true;
 		Destroy(continueButton.gameObject);
-		Destroy(note.gameObject);
 	}
 }

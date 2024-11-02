@@ -229,6 +229,7 @@ public class LetterManager : MonoBehaviour
 		{
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedFakeStampNote = true;
+			GameObject fade = (GameObject)Instantiate(Resources.Load("Fade"));
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
 
 			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.1f);
@@ -245,12 +246,13 @@ public class LetterManager : MonoBehaviour
 			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
 			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
 			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
-			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
 		}
 		if (scorePennies >= 30 && !spawnedWrongAddressNote)
 		{
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedWrongAddressNote = true;
+			GameObject fade = (GameObject)Instantiate(Resources.Load("Fade"));
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
 
 			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.2f);
@@ -267,12 +269,13 @@ public class LetterManager : MonoBehaviour
 			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
 			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
 			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
-			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
 		}
 		if (scorePennies >= 55 && !spawnedWrongCityNote)
 		{
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			spawnedWrongCityNote = true;
+			GameObject fade = (GameObject)Instantiate(Resources.Load("Fade"));
 			GameObject note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
 
 			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.3f);
@@ -289,7 +292,7 @@ public class LetterManager : MonoBehaviour
 			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
 			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
 			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
-			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
 		}
 	}
 
@@ -376,7 +379,9 @@ public class LetterManager : MonoBehaviour
 		endScreen.SetActive(false);
 
 		GetComponent<SoundManager>().PlaySound(ESound.New);
+		GameObject fade = (GameObject)Instantiate(Resources.Load("Fade"));
 		GameObject note = (GameObject)Instantiate(Resources.Load("NoteStart"));
+		SpriteRenderer noteRenderer = note.GetComponent<SpriteRenderer>();
     	Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
 		note.transform.position = pos;
 
@@ -387,12 +392,13 @@ public class LetterManager : MonoBehaviour
 		RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
 		buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
         buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
-		continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, note));
+		continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
 	}
 
-	public void OnContinueButtonClick(Button continueButton, GameObject note)
+	public void OnContinueButtonClick(Button continueButton, GameObject fade)
 	{
 		readytocontinue = true;
 		Destroy(continueButton.gameObject);
+		Destroy(fade);
 	}
 }

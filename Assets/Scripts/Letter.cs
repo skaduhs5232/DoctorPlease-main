@@ -15,6 +15,7 @@ public class Letter : Dragabble
 {
 	string address;
 	public bool isValid { get; private set; }
+	public int cardvalue { get; internal set; }
 	public EDeliveryType deliveryType { get; private set; }
 	public SpriteRenderer letterSprite;
 	public TextMesh text;
@@ -26,13 +27,14 @@ public class Letter : Dragabble
 	bool isGrowing = false;
 
 
-	public void Initialise(string _address, bool _isAddressValid, EDeliveryType _type, float z)
+	public void Initialise(string _address, bool _isAddressValid, EDeliveryType _type, float z , int cardvaluee)
 	{
 	  //letterSprite = GetComponentInChildren<SpriteRenderer>();
 		//text = GetComponentInChildren<TextMesh>();
 
 		float rotation = (Random.Range(0f, 1f) > .5f ? 1 : -1) * Random.Range(0f, 20f);
 		float stampRotation = (Random.Range(0f, 1f) > .5f ? 1 : -1) * Random.Range(0f, 8f) + rotation;
+		cardvalue = cardvaluee;
 
 		transform.rotation = Quaternion.Euler(0, 0, rotation);
 		transform.position = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -z - .5f);

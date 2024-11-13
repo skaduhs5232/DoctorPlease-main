@@ -49,6 +49,11 @@ public class LetterManager : MonoBehaviour
 	float letterSpawnCountdown = 15;
 	bool initialSpawnCountdown = true;
 
+	int fakevalue = 0;
+	List<Letter> fakeletters = new List<Letter>();
+	List<int> playererrors = new List<int>();
+
+
 	float letterValueCount = 0;
 
 	bool spawnedFakeStampNote = false;
@@ -156,20 +161,20 @@ public class LetterManager : MonoBehaviour
 					{
 						Debug.Log("succeed");
 						SetScore(2);
-						RemoveLetter(letter);
+						RemoveLetter(letter,true);
 						return;
 					}
 					else if (letter.deliveryType == EDeliveryType.SecondClass && hoveredBin == EBinType.Second)
 					{
 						Debug.Log("succeed");
 						SetScore(1);
-						RemoveLetter(letter);
+						RemoveLetter(letter,true);
 						return;
 					}
 
 					Fail();
 					Debug.Log("fail");
-					RemoveLetter(letter);
+					RemoveLetter(letter, false) ;
 					return;
 				}
 				else
@@ -178,14 +183,14 @@ public class LetterManager : MonoBehaviour
 					{
 						Fail();
 						Debug.Log("fail");
-						RemoveLetter(letter);
+						RemoveLetter(letter , false);
 						return;
 					}
 					else
 					{
 						SetScore(1);
 						Debug.Log("succeed");
-						RemoveLetter(letter);
+						RemoveLetter(letter , true);
 					}
 				}
 			}
@@ -239,6 +244,8 @@ public class LetterManager : MonoBehaviour
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
 
+			Jornalgenerator();
+
 			await Task.Delay(700);
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
@@ -257,6 +264,8 @@ public class LetterManager : MonoBehaviour
 
 			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.2f);
 			note.transform.position = pos;
+
+			Jornalgenerator();
 			
 			generator.SetDifficulty(3);
 			initialSpawnCountdown = true;
@@ -281,6 +290,8 @@ public class LetterManager : MonoBehaviour
 			Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.3f);
 			note.transform.position = pos;
 
+			Jornalgenerator();
+
 			generator.SetDifficulty(4);
 			initialSpawnCountdown = true;
 			letterSpawnCountdown = 10f;
@@ -300,13 +311,27 @@ public class LetterManager : MonoBehaviour
 	{
 		GetComponent<SoundManager>().PlaySound(ESound.New);
 		GameObject instantiated = Instantiate(letterObject);
-		generator.Generate(instantiated.GetComponent<Letter>());
+		Letter newletterr = instantiated.GetComponent<Letter>();
+		generator.Generate(newletterr);
+		if(generator.value >= LetterGenerator.baseFakeValue)
+		{
+			fakeletters.Add(generator.createdletter);
+		}
 		letterValueCount += instantiated.GetComponent<Letter>().deliveryType == EDeliveryType.FirstClass ? 1.5f : 1;
 		slider.value = letterValueCount;
 	}
 
-	void RemoveLetter(Letter letter)
+	void RemoveLetter(Letter letter , bool MissOrMake)
 	{
+		if(!MissOrMake && fakeletters.Contains(letter))
+		{
+			playererrors.Add(letter.cardvalue);
+		}
+		else if(!MissOrMake)
+		{
+		    //Erased correct
+			playererrors.Add(letter.cardvalue);
+		}
 		letterValueCount -= letter.deliveryType == EDeliveryType.FirstClass ? 1.5f : 1;
 		Destroy(letter.gameObject);
 		slider.value = letterValueCount;
@@ -385,6 +410,7 @@ public class LetterManager : MonoBehaviour
     	Vector3 pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
 		note.transform.position = pos;
 
+
 		await Task.Delay(700);
 		readytocontinue = false;
     	GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
@@ -400,5 +426,40 @@ public class LetterManager : MonoBehaviour
 		readytocontinue = true;
 		Destroy(continueButton.gameObject);
 		Destroy(fade);
+	}
+
+	public void Jornalgenerator()
+	{
+		foreach(int playererror in playererrors)
+		{
+			switch (playererror)
+			{
+				case LetterGenerator.baseFakeValue:
+					//no stamp
+					Debug.Log(1);
+					break;
+				case LetterGenerator.baseFakeValue + 1:
+					//fake stamp
+					Debug.Log(2);
+					break;
+				case LetterGenerator.baseFakeValue + 2:
+					//wrong name
+					Debug.Log(3);
+					break;
+				case LetterGenerator.baseFakeValue + 3:
+					//wrong address
+					Debug.Log(4);
+					break;
+				case LetterGenerator.baseFakeValue + 4:
+					//fake city
+					Debug.Log(5);	
+					break;
+				default:
+					// Erased correct
+					Debug.Log(6);
+					break;
+			}
+		}
+		playererrors = new List<int>();
 	}
 }

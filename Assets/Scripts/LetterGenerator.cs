@@ -57,7 +57,11 @@ public class LetterGenerator : MonoBehaviour
 	int difficulty = 0;
 	public float z = 0;
 
-	const int baseFakeValue = 6;
+	public const int baseFakeValue = 6;
+	public int value = 0;
+
+
+	public Letter createdletter;
 
 	public void SetDifficulty(int newDifficulty)
 	{
@@ -77,7 +81,7 @@ public class LetterGenerator : MonoBehaviour
 
 		bool isLetterValid = true;
 
-		int value = Random.Range(1, baseFakeValue + 1 + difficulty);
+		value = Random.Range(1, baseFakeValue + 1 + difficulty);
 
 		//first couple letters guaranteed to be right
 		if (LetterManager.instance.scorePennies < 3 && LetterManager.instance.scorePounds < 1)
@@ -104,8 +108,8 @@ public class LetterGenerator : MonoBehaviour
 					type = EDeliveryType.Missing;
 					break;
 				case baseFakeValue + 1:
+					//fake stamp
 					type = Random.Range(0f, 1f) >= .5f ? EDeliveryType.FakeFirstClass : EDeliveryType.FakeSecondClass;
-					//todo
 					break;
 				case baseFakeValue + 2:
 					//wrong name
@@ -138,7 +142,8 @@ public class LetterGenerator : MonoBehaviour
 		}
 
 		string address = firstName + surname + "\n" + houseNumber + streetFirstWord + streetLastWord + "\n" + city;
-		letterComponent.Initialise(address, isLetterValid, type, z);
+		letterComponent.Initialise(address, isLetterValid, type, z , value);
+		createdletter = letterComponent;
 		z += .2f;
 		if (z > 8.5)
 			z = 0;

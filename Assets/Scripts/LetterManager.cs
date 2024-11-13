@@ -46,7 +46,7 @@ public class LetterManager : MonoBehaviour
 	public GameObject gameplayScreen;
 	public Text finalScoreText;
 
-	float letterSpawnCountdown = 15;
+	float letterSpawnCountdown = 10;
 	bool initialSpawnCountdown = true;
 
 	int fakevalue = 0;
@@ -92,7 +92,7 @@ public class LetterManager : MonoBehaviour
 			else if (letterSpawnCountdown < 0)
 			{
 				initialSpawnCountdown = false;
-				letterSpawnCountdown = Mathf.Max(0.25f, Random.Range(3.2f, 6.5f) - ((float)scorePennies + scorePounds * 100) / 45f);
+				letterSpawnCountdown = Mathf.Max(0.25f, Random.Range(2.5f, 5.0f) - ((float)scorePennies + scorePounds * 100) / 45f);
 				AddLetter();
 			}
 
@@ -397,7 +397,7 @@ public class LetterManager : MonoBehaviour
     
 		generator.SetDifficulty(0);
 		initialSpawnCountdown = true;
-		letterSpawnCountdown = 10f;
+		letterSpawnCountdown = 1f;
 		state = EState.Gameplay;
 		gameplayScreen.SetActive(true);
 		startScreen.SetActive(false);

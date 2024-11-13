@@ -397,7 +397,7 @@ public class LetterManager : MonoBehaviour
     
 		generator.SetDifficulty(0);
 		initialSpawnCountdown = true;
-		letterSpawnCountdown = 1f;
+		letterSpawnCountdown = 10f;
 		state = EState.Gameplay;
 		gameplayScreen.SetActive(true);
 		startScreen.SetActive(false);

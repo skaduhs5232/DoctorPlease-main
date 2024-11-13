@@ -48,9 +48,7 @@ public class LetterManager : MonoBehaviour
 
 	float letterSpawnCountdown = 10;
 	bool initialSpawnCountdown = true;
-
-	int fakevalue = 0;
-	List<Letter> fakeletters = new List<Letter>();
+	
 	List<int> playererrors = new List<int>();
 
 
@@ -313,21 +311,13 @@ public class LetterManager : MonoBehaviour
 		GameObject instantiated = Instantiate(letterObject);
 		Letter newletterr = instantiated.GetComponent<Letter>();
 		generator.Generate(newletterr);
-		if(generator.value >= LetterGenerator.baseFakeValue)
-		{
-			fakeletters.Add(generator.createdletter);
-		}
 		letterValueCount += instantiated.GetComponent<Letter>().deliveryType == EDeliveryType.FirstClass ? 1.5f : 1;
 		slider.value = letterValueCount;
 	}
 
 	void RemoveLetter(Letter letter , bool MissOrMake)
 	{
-		if(!MissOrMake && fakeletters.Contains(letter))
-		{
-			playererrors.Add(letter.cardvalue);
-		}
-		else if(!MissOrMake)
+		if(!MissOrMake)
 		{
 		    //Erased correct
 			playererrors.Add(letter.cardvalue);

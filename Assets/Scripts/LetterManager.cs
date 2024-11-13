@@ -48,7 +48,7 @@ public class LetterManager : MonoBehaviour
 
 	float letterSpawnCountdown = 10;
 	bool initialSpawnCountdown = true;
-	
+
 	List<int> playererrors = new List<int>();
 
 
@@ -248,10 +248,9 @@ public class LetterManager : MonoBehaviour
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
-			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
-			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
 			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+
+			continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 		}
 		if (scorePennies >= 30 && !spawnedWrongAddressNote)
 		{
@@ -273,10 +272,9 @@ public class LetterManager : MonoBehaviour
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
-			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
-			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
 			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+
+			continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 		}
 		if (scorePennies >= 55 && !spawnedWrongCityNote)
 		{
@@ -298,10 +296,9 @@ public class LetterManager : MonoBehaviour
 			readytocontinue = false;
 			GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-			RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
-			buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
-			buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
 			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+
+			continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 		}
 	}
 
@@ -319,9 +316,9 @@ public class LetterManager : MonoBehaviour
 	{
 		if(!MissOrMake)
 		{
-		    //Erased correct
 			playererrors.Add(letter.cardvalue);
 		}
+
 		letterValueCount -= letter.deliveryType == EDeliveryType.FirstClass ? 1.5f : 1;
 		Destroy(letter.gameObject);
 		slider.value = letterValueCount;
@@ -405,10 +402,9 @@ public class LetterManager : MonoBehaviour
 		readytocontinue = false;
     	GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 		Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-		RectTransform buttonRect = continueButton.GetComponent<RectTransform>();
-		buttonRect.anchoredPosition = new Vector2(pos.x * 100, pos.y * 100);
-        buttonRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x, buttonRect.anchoredPosition.y - 200); 
 		continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+
+		continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 	}
 
 	public void OnContinueButtonClick(Button continueButton, GameObject fade)

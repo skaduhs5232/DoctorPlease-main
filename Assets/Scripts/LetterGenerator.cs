@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class LetterGenerator : MonoBehaviour
 {
-	List<string> firstNames = new List<string>{ "João", "Jéssica", "Bárbara", "Tomás", "Dafne",
-											"Jaime", "Sara", "Bruno", "Davi", "Jefferson", "Ana", "Lídia",
-											"Micaela", "Ana", "Lourenço", "Olavo", "Sofia", "Luiz",
-											"Moisés", "Estêvão", "Henrique", "Rebeca", "Sebastião", "Simone",
-											"Miguel", "Angélica", "Marcos", "Allan", "Ricardo", "Helena", "Daniel",
+List<string> firstNames = new List<string>{ "Joao", "Jessica", "Barbara", "Tomas", "Dafne",
+											"Jaime", "Sara", "Bruno", "Davi", "Jefferson", "Ana", "Lidia",
+											"Micaela", "Ana", "Lourenco", "Olavo", "Sofia", "Luiz",
+											"Moises", "Estevao", "Henrique", "Rebeca", "Sebastiao", "Simone",
+											"Miguel", "Angelica", "Marcos", "Allan", "Ricardo", "Helena", "Daniel",
 											"Fernanda", "Joaquim", "Lorena" };
 
-	List<string> surnames = new List<string>{ "Pereira", "Silva", "Lima", "Moraes", "Sousa", "Rodrigues", "Oliveira",
+List<string> surnames = new List<string>{ "Pereira", "Silva", "Lima", "Moraes", "Sousa", "Rodrigues", "Oliveira",
 											"Martins", "Almeida", "Barbosa", "Gomes", "Santos", "Coelho", "Carvalho",
 											"Souza", "Costa", "Schmidt", "Santos", "Muniz", "Fernandes", "Nascimento", "Maciel",
-											"Camargo", "Araújo", "Ribeiro", "Batista", "Barros", "Teixeira", "Müller", "Fischer", "Schneider",
+											"Camargo", "Araujo", "Ribeiro", "Batista", "Barros", "Teixeira", "Muller", "Fischer", "Schneider",
 											"Carvalho", "Macedo", "Ferreira", "Borges", "Jaeger", "Ziegler" };
 
+List<string> streetLastWords = new List<string> { "Dor de cabeca", "Febre", "Tosse", "Fadiga", "Dor muscular", "Calafrios", "Dificuldade para respirar", "Dor no peito",
+													"Nausea", "Vomito", "Diarreia", "Perda de apetite", "Erupcao cutanea", "Fadiga", "Suores noturnos", "Congestao nasal",
+													"Dor abdominal", "Dores nas articulacoes", "Tontura", "Perda de olfato", "Confusao mental", "Olhos vermelhos", "Falta de ar", "Dor de garganta" };
 
-	List<string> streetLastWords = new List<string> { "Dor de cabeça", "Febre", "Tosse", "Fadiga", "Dor muscular", "Calafrios", "Dificuldade para respirar", "Dor no peito",
-													"Náusea", "Vômito", "Diarreia", "Perda de apetite", "Erupção cutânea", "Cansaço excessivo", "Suores noturnos", "Congestão nasal",
-													"Dor abdominal", "Dores nas articulações", "Tontura", "Perda de olfato", "Confusão mental", "Olhos vermelhos", "Falta de ar", "Dor de garganta" };
-
-
-	List<string> streetFirstWords = new List<string> { "Enxaqueca e :", "Gripe e :", "Bronquite e :", "Anemia e :", "Fibromialgia e :", "Malária e :", "Asma e :", "Angina e :",
-													"Gastrite e :", "Vômito agudo e :", "Gastroenterite e :", "Hepatite e :", "Dermatite e :", "Síndrome da fadiga crônica e :", "Tuberculose e :",
-													"Sinusite e :", "Apendicite e :", "Artrite e :", "Vertigem e :", "COVID-19 e :", "Demência e :", "Conjuntivite e :", "Doença pulmonar obstrutiva crônica (DPOC) e :", "Faringite" };
+List<string> streetFirstWords = new List<string> { "Enxaqueca e :", "Gripe e :", "Bronquite e :", "Anemia e :", "Fibromialgia e :", "Malaria e :", "Asma e :", "Angina e :",
+													"Gastrite e :", "Vomito agudo e :", "Gastroenterite e :", "Hepatite e :", "Dermatite e :", "Sindrome da fadiga cronica e :", "Tuberculose e :",
+													"Sinusite e :", "Apendicite e :", "Artrite e :", "Vertigem e :", "COVID-19 e :", "Demencia e :", "Conjuntivite e :", "Doenca pulmonar obstrutiva cronica (DPOC) e :", "Faringite" };
 
 	List<string> cities = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
 		"416987342580004",  "429017364570003","436789234570002","445987102830006","457432198620001",  "465789234670007","479013847260008",

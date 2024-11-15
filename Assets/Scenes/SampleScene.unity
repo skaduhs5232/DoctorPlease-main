@@ -3592,6 +3592,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   z: 0
+  value: 0
+  createdletter: {fileID: 0}
 --- !u!114 &2138091164
 MonoBehaviour:
   m_ObjectHideFlags: 0

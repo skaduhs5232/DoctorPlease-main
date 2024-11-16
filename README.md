@@ -1,6 +1,6 @@
 # 🩺 Doctor Please! 🩺  
 
-### Criado por: Thiago Sampaio, Pedro Andrade, Nicholas Shereen, Gabriel Maia
+### Criado por: Thiago Sampaio, Pedro Andrade, Nicholas Schreen, Gabriel Maia
 
 Bem-vindo ao repositório de **Doctor Please!**, um remake inspirado no clássico **Papers, Please**, com uma temática médica. Este jogo foi desenvolvido por mim e minha equipe para oferecer uma experiência divertida e desafiadora no universo da saúde pública! 🚑🏥  
 

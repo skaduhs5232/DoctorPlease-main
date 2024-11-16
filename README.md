@@ -38,7 +38,7 @@ O jogo desafia seu **raciocínio lógico** e **atenção aos detalhes**, trazend
 ## 📲 Experimente Agora  
 Teste suas habilidades organizando prontuários e contribuindo para salvar o sistema de saúde!  
 👨‍⚕️👩‍⚕️  
-- [Baixar o jogo aqui](#) *(link do download, se disponível)*  
+- Para baixar o jogo clone o repositório e abra na Unity
 - Feedback? Abra uma issue ou contribua com sugestões!  
 
 ---

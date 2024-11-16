@@ -21,9 +21,9 @@ List<string> streetLastWords = new List<string> { "Dor de cabeca", "Febre", "Tos
 													"Nausea", "Vomito", "Diarreia", "Perda de apetite", "Erupcao cutanea", "Fadiga", "Suores noturnos", "Congestao nasal",
 													"Dor abdominal", "Dores nas articulacoes", "Tontura", "Perda de olfato", "Confusao mental", "Olhos vermelhos", "Falta de ar", "Dor de garganta" };
 
-List<string> streetFirstWords = new List<string> { "Enxaqueca e :", "Gripe e :", "Bronquite e :", "Anemia e :", "Fibromialgia e :", "Malaria e :", "Asma e :", "Angina e :",
-													"Gastrite e :", "Vomito agudo e :", "Gastroenterite e :", "Hepatite e :", "Dermatite e :", "Sindrome da fadiga cronica e :", "Tuberculose e :",
-													"Sinusite e :", "Apendicite e :", "Artrite e :", "Vertigem e :", "COVID-19 e :", "Demencia e :", "Conjuntivite e :", "Doenca pulmonar obstrutiva cronica (DPOC) e :", "Faringite" };
+List<string> streetFirstWords = new List<string> { "Enxaqueca e ->", "Gripe e ->", "Bronquite e ->", "Anemia e ->", "Fibromialgia e ->", "Malaria e ->", "Asma e ->", "Angina e ->",
+													"Gastrite e ->", "Vomito agudo e ->", "Gastroenterite e ->", "Hepatite e ->", "Dermatite e ->", "Sindrome da fadiga cronica e ->", "Tuberculose e ->",
+													"Sinusite e ->", "Apendicite e ->", "Artrite e ->", "Vertigem e ->", "COVID-19 e ->", "Demencia e ->", "Conjuntivite e ->", "DPOC e ->", "Faringite e ->" };
 
 	List<string> cities = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
 		"416987342580004",  "429017364570003","436789234570002","445987102830006","457432198620001",  "465789234670007","479013847260008",
@@ -92,13 +92,7 @@ List<string> streetFirstWords = new List<string> { "Enxaqueca e :", "Gripe e :",
 		if (value >= baseFakeValue)
 		{
 			isLetterValid = false;
-
-			//if (evilLetter == 1)
-			//{
-			//letter = MakeEvilLetter();
-			//return;
-			//}
-
+		
 			switch (value)
 			{
 				case baseFakeValue:
@@ -146,11 +140,6 @@ List<string> streetFirstWords = new List<string> { "Enxaqueca e :", "Gripe e :",
 		if (z > 8.5)
 			z = 0;
 	}
-
-	//Letter MakeEvilLetter()
-	//{
-	//	return new Letter();
-	//}
 
 	string PickRandomFromList(List<string> list)
 	{

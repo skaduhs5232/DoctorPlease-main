@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ButtonFollowLetter : MonoBehaviour
 {
-    public Transform letterTransform;   // The Transform of the letter sprite
-    private RectTransform rectTransform; // The RectTransform of the button
+    public Transform letterTransform;   
+    private RectTransform rectTransform; 
     private Canvas canvas;
 
     void Start()

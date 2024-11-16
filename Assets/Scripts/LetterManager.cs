@@ -400,7 +400,7 @@ public class LetterManager : MonoBehaviour
 
 		await Task.Delay(700);
 		readytocontinue = false;
-    	GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+    GameObject ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 		Button continueButton = ContinueCanvas.GetComponentInChildren<Button>();
 		continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
 
@@ -421,15 +421,15 @@ public class LetterManager : MonoBehaviour
 			switch (playererror)
 			{
 				case LetterGenerator.baseFakeValue:
-					//no stamp
-					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+					//Sem Selo
+					GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));
 					Debug.Log(1);
 					break;
 				case LetterGenerator.baseFakeValue + 1:
-					//fake stamp
+					//Selo errado
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
@@ -437,7 +437,7 @@ public class LetterManager : MonoBehaviour
 					Debug.Log(2);
 					break;
 				case LetterGenerator.baseFakeValue + 2:
-					//wrong name
+					//Nome errado e Sobrenome Errado
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
@@ -445,7 +445,7 @@ public class LetterManager : MonoBehaviour
 					Debug.Log(3);
 					break;
 				case LetterGenerator.baseFakeValue + 3:
-					//wrong address
+					//Doença errada
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
@@ -453,7 +453,7 @@ public class LetterManager : MonoBehaviour
 					Debug.Log(4);
 					break;
 				case LetterGenerator.baseFakeValue + 4:
-					//fake city
+					//Nis errado
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
@@ -461,7 +461,7 @@ public class LetterManager : MonoBehaviour
 					Debug.Log(5);	
 					break;
 				default:
-					// Erased correct
+					// Apagado errado
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
@@ -475,7 +475,7 @@ public class LetterManager : MonoBehaviour
 		{
 			 //Lógica para a criação dos jornais bons
 
-		/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(1,4)));
+		/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal_Bom-" + UnityEngine.Random.Range(1,4)));
 			Jornal.transform.position = new Vector3(0,0,-9);
 			continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
 

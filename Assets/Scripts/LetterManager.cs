@@ -49,10 +49,18 @@ public class LetterManager : MonoBehaviour
 	float letterSpawnCountdown = 10;
 	bool initialSpawnCountdown = true;
 
+	//Jornal variables
 	List<int> playererrors = new List<int>();
 	GameObject Jornal;
 	GameObject JornalX;
 	Button JornalXButton;
+
+	//Instruction note variables
+	Vector3 pos;
+	GameObject note;
+	GameObject fade;
+	GameObject ContinueCanvas;
+	Button continueButton;
 
 
 	float letterValueCount = 0;
@@ -342,114 +350,58 @@ public class LetterManager : MonoBehaviour
 
 	public void Jornalgenerator(int notenum)
 	{
-		//if(playererrors.Count>1)
-		//{
-		//	
-		//}
-		//else if(playererrors.Count==1)
-		//{
-		foreach(int playererror in playererrors)
-		{
-			switch (playererror)
-			{
-				case LetterGenerator.baseFakeValue:
-					//Sem Selo
-					Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);
-
-					Debug.Log(1);
-
-					break;
-				case LetterGenerator.baseFakeValue + 1:
-					//Selo errado
-					/*Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);*/
-					Debug.Log(2);
-					break;
-				case LetterGenerator.baseFakeValue + 2:
-					//Nome errado e Sobrenome Errado
-					/*Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);*/
-					Debug.Log(3);
-					break;
-				case LetterGenerator.baseFakeValue + 3:
-					//Doença errada
-					/*Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);*/
-					Debug.Log(4);
-					break;
-				case LetterGenerator.baseFakeValue + 4:
-					//Nis errado
-					/*Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);*/
-					Debug.Log(5);	
-					break;
-				default:
-					// Apagado errado
-					/*Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
-					Jornal.transform.position = new Vector3(0,0,-9);
-
-					JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
-					JornalXButton = JornalX.GetComponentInChildren<Button>();
-
-					JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
-
-					JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);*/
-					Debug.Log(6);
-					break;
-			}
-			//}
-		}
 		if(playererrors.Count==0)
 		{
 			//Lógica para a criação dos jornais bons
-
-			GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,8)));
+			Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,8)));
+		}
+		else
+		{
+			foreach(int playererror in playererrors)
+			{
+				switch (playererror)
+				{
+					case LetterGenerator.baseFakeValue:
+						//Sem Selo
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Debug.Log(1);
+						break;
+					case LetterGenerator.baseFakeValue + 1:
+						//Selo errado
+						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
+						Debug.Log(2);
+						break;
+					case LetterGenerator.baseFakeValue + 2:
+						//Nome errado e Sobrenome Errado
+						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
+						Debug.Log(3);
+						break;
+					case LetterGenerator.baseFakeValue + 3:
+						//Doença errada
+						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
+						Debug.Log(4);
+						break;
+					case LetterGenerator.baseFakeValue + 4:
+						//Nis errado
+						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
+						Debug.Log(5);	
+						break;
+					default:
+						// Apagado errado
+						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
+						Debug.Log(6);
+						break;
+				}
+			}
+		}
 			Jornal.transform.position = new Vector3(0,0,-9);
-
 			GameObject JornalX = (GameObject)Instantiate(Resources.Load("JornalX"));
 			Button JornalXButton = JornalX.GetComponentInChildren<Button>();
 
-			JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX , notenum));
+			JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
 
 			JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);
-		}
-		playererrors = new List<int>();
+			playererrors = new List<int>();
 	}
 
 
@@ -463,95 +415,35 @@ public class LetterManager : MonoBehaviour
 
 	public async void notegenerator(int notenum)
 	{	
-		Vector3 pos;
-		GameObject note;
-		GameObject fade;
-		GameObject ContinueCanvas;
-		Button continueButton;
 		switch(notenum)
 		{
 			case 1:
-				GetComponent<SoundManager>().PlaySound(ESound.New);
-				fade = (GameObject)Instantiate(Resources.Load("Fade"));
 				note = (GameObject)Instantiate(Resources.Load("NoteStart"));
-				SpriteRenderer noteRenderer = note.GetComponent<SpriteRenderer>();
-				pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
-				note.transform.position = pos;
-
-
-				await Task.Delay(700);
-				readytocontinue = false;
-				ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
-				continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-				continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
-
-				continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 				break;
 			case 2:
-				GetComponent<SoundManager>().PlaySound(ESound.New);
-				spawnedFakeStampNote = true;
-				fade = (GameObject)Instantiate(Resources.Load("Fade"));
 				note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
-				pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.1f);
-				note.transform.position = pos;
-
-				generator.SetDifficulty(1);
-				initialSpawnCountdown = true;
-				letterSpawnCountdown = 10f;
-
-				await Task.Delay(700);
-				readytocontinue = false;
-				ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
-				continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-				continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
-
-				continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 				break;
 			case 3:
-				GetComponent<SoundManager>().PlaySound(ESound.New);
-				spawnedWrongAddressNote = true;
-				fade = (GameObject)Instantiate(Resources.Load("Fade"));
 				note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
-
-				pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.2f);
-				note.transform.position = pos;
-				
-				generator.SetDifficulty(3);
-				initialSpawnCountdown = true;
-				letterSpawnCountdown = 10f;
-
-				await Task.Delay(700);
-				readytocontinue = false;
-				ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
-				continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-				continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
-
-				continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 				break;
 			case 4:
-				GetComponent<SoundManager>().PlaySound(ESound.New);
-				spawnedWrongCityNote = true;
-				fade = (GameObject)Instantiate(Resources.Load("Fade"));
 				note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
-
-				pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.3f);
-				note.transform.position = pos;
-
-
-				generator.SetDifficulty(4);
-				initialSpawnCountdown = true;
-				letterSpawnCountdown = 10f;
-
-				await Task.Delay(700);
-				readytocontinue = false;
-				ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
-				continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-				continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
-
-				continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 				break;
-
 		}
+			GetComponent<SoundManager>().PlaySound(ESound.New);
+			fade = (GameObject)Instantiate(Resources.Load("Fade"));
+			SpriteRenderer noteRenderer = note.GetComponent<SpriteRenderer>();
+			pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
+			note.transform.position = pos;
+
+
+			await Task.Delay(700);
+			readytocontinue = false;
+			ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
+			continueButton = ContinueCanvas.GetComponentInChildren<Button>();
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+
+			continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 	}
 	
 	public void OnContinueButtonClick(Button continueButton, GameObject fade)

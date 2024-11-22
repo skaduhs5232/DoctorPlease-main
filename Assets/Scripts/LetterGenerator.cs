@@ -17,22 +17,22 @@ List<string> surnames = new List<string>{ "Pereira", "Silva", "Lima", "Moraes", 
 											"Camargo", "Araujo", "Ribeiro", "Batista", "Barros", "Teixeira", "Muller", "Fischer", "Schneider",
 											"Carvalho", "Macedo", "Ferreira", "Borges", "Jaeger", "Ziegler" };
 
-List<string> streetLastWords = new List<string> { "Dor de cabeca", "Febre", "Tosse", "Fadiga", "Dor muscular", "Calafrios", "Dificuldade para respirar", "Dor no peito",
+List<string> symptoms = new List<string> { "Dor de cabeca", "Febre", "Tosse", "Fadiga", "Dor muscular", "Calafrios", "Dificuldade para respirar", "Dor no peito",
 													"Nausea", "Vomito", "Diarreia", "Perda de apetite", "Erupcao cutanea", "Fadiga", "Suores noturnos", "Congestao nasal",
 													"Dor abdominal", "Dores nas articulacoes", "Tontura", "Perda de olfato", "Confusao mental", "Olhos vermelhos", "Falta de ar", "Dor de garganta" };
 
-List<string> streetFirstWords = new List<string> { "Enxaqueca e ->", "Gripe e ->", "Bronquite e ->", "Anemia e ->", "Fibromialgia e ->", "Malaria e ->", "Asma e ->", "Angina e ->",
+List<string> sicknes = new List<string> { "Enxaqueca e ->", "Gripe e ->", "Bronquite e ->", "Anemia e ->", "Fibromialgia e ->", "Malaria e ->", "Asma e ->", "Angina e ->",
 													"Gastrite e ->", "Vomito agudo e ->", "Gastroenterite e ->", "Hepatite e ->", "Dermatite e ->", "Sindrome da fadiga cronica e ->", "Tuberculose e ->",
 													"Sinusite e ->", "Apendicite e ->", "Artrite e ->", "Vertigem e ->", "COVID-19 e ->", "Demencia e ->", "Conjuntivite e ->", "DPOC e ->", "Faringite e ->" };
 
-	List<string> cities = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
+List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
 		"416987342580004",  "429017364570003","436789234570002","445987102830006","457432198620001",  "465789234670007","479013847260008",
 		"485172936480003","497603184570002","508793617450004","512073984620001","523098741620006","537461029340002","543897612340009",
 		"555671294380006","564839127450003","572098134580001","587612349870004","595871034670002","602198736450006","617409283650008","629874012360004","637198572430002","648792034870005","655401238960003"
 };
 
 
-	List<string> fakeCities = new List<string> {
+	List<string> fakeNIS = new List<string> {
     "49760318 :) :D ;) 570002",
     "834726 :P :O XD 192834",
     "293847 ;) :/ :( 2837",
@@ -70,10 +70,9 @@ List<string> streetFirstWords = new List<string> { "Enxaqueca e ->", "Gripe e ->
 	{
 		string firstName = PickRandomFromList(firstNames) + " ";
 		string surname = PickRandomFromList(surnames);
-		string houseNumber = Mathf.RoundToInt(Random.Range(1, 420)).ToString() + " ";
-		string streetFirstWord = PickRandomFromList(streetFirstWords) + " ";
-		string streetLastWord = PickRandomFromList(streetLastWords);
-		string city = PickRandomFromList(cities);
+		string sickness = PickRandomFromList(sicknes) + " ";
+		string symptom = PickRandomFromList(symptoms);
+		string NISS = PickRandomFromList(NIS);
 
 		EDeliveryType type = Random.Range(0f, 1f) >= .65f ? EDeliveryType.FirstClass : EDeliveryType.SecondClass;
 
@@ -111,26 +110,24 @@ List<string> streetFirstWords = new List<string> { "Enxaqueca e ->", "Gripe e ->
 						break;
 					}
 				case baseFakeValue + 3:
-					//wrong address
+					//wrong Sickness
 					{
-						int roll = Random.Range(0, 3);
+						int roll = Random.Range(0, 2);
 						if (roll == 0)
-							houseNumber = "";
-						else if (roll == 1)
-							streetFirstWord = "";
+							sickness = "";
 						else
-							streetLastWord = "";
+							symptom = "";
 						break;
 					}
 				case baseFakeValue + 4:
-					//fake city
-					city = PickRandomFromList(fakeCities);
+					//fake NIS
+					NISS = PickRandomFromList(fakeNIS);
 					break;
 			}
 
 		}
 
-		string address = firstName + surname + "\n" + houseNumber + streetFirstWord + streetLastWord + "\n" + city;
+		string address = firstName + surname + "\n" + sickness + symptom + "\n" + NISS;
 		letterComponent.Initialise(address, isLetterValid, type, z , value);
 		createdletter = letterComponent;
 		z += .2f;

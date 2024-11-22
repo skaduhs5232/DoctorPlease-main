@@ -85,9 +85,6 @@ List<string> streetFirstWords = new List<string> { "Enxaqueca e ->", "Gripe e ->
 		if (LetterManager.instance.scorePennies < 3 && LetterManager.instance.scorePounds < 1)
 			value = 0;
 
-		//10 percent chance of an evil letter if the letter is incorrect, overall 1/100 letters are evil
-		int evilLetter = Mathf.RoundToInt(Random.Range(1, 10));
-
 		//generate incorrect letter
 		if (value >= baseFakeValue)
 		{

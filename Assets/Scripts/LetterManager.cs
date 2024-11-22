@@ -425,18 +425,30 @@ public class LetterManager : MonoBehaviour
 			{
 				case LetterGenerator.baseFakeValue:
 					//Sem Selo
-					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+					GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);
+
 					Debug.Log(1);
-					break;*/
+
+					break;
 				case LetterGenerator.baseFakeValue + 1:
 					//Selo errado
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);*/
 					Debug.Log(2);
 					break;
 				case LetterGenerator.baseFakeValue + 2:
@@ -444,7 +456,12 @@ public class LetterManager : MonoBehaviour
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);*/
 					Debug.Log(3);
 					break;
 				case LetterGenerator.baseFakeValue + 3:
@@ -452,7 +469,12 @@ public class LetterManager : MonoBehaviour
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);*/
 					Debug.Log(4);
 					break;
 				case LetterGenerator.baseFakeValue + 4:
@@ -460,7 +482,12 @@ public class LetterManager : MonoBehaviour
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);*/
 					Debug.Log(5);	
 					break;
 				default:
@@ -468,28 +495,32 @@ public class LetterManager : MonoBehaviour
 					/*GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
 					Jornal.transform.position = new Vector3(0,0,-9);
 
-					continueButton.onClick.AddListener(() => OnContinueButtonClick2(Jornal));*/
+					GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
+					Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
+
+					continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
+
+					continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);*/
 					Debug.Log(6);
 					break;
 			}
 		}
-		playererrors = new List<int>();
 		if(playererrors.Count==0)
 		{
-			 //Lógica para a criação dos jornais bons
+			//Lógica para a criação dos jornais bons
 
-		GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,8)));
+			GameObject Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,8)));
 			Jornal.transform.position = new Vector3(0,0,-9);
 
-			GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("ContinueCanvas2"));
+			GameObject ContinueCanvas2 = (GameObject)Instantiate(Resources.Load("JornalX"));
 			Button continueButton2 = ContinueCanvas2.GetComponentInChildren<Button>();
 
 			continueButton2.onClick.AddListener(() => OnContinueButtonClick2(Jornal,continueCanvas,ContinueCanvas2));
 
-			continueButton2.transform.position = new Vector3(1000,1000,0);
-
-			Debug.Log("jornal-" + UnityEngine.Random.Range(1,5));
+			continueButton2.transform.position = new Vector3(1673.5f,833.5f,0);
 		}
+		
+		playererrors = new List<int>();
 	}
 	public void OnContinueButtonClick2(GameObject jornal, GameObject continueCanvas, GameObject continueCanvas2)
 	{

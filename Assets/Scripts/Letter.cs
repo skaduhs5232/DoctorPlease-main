@@ -29,8 +29,6 @@ public class Letter : Dragabble
 
 	public void Initialise(string _address, bool _isAddressValid, EDeliveryType _type, float z , int cardvaluee)
 	{
-	  //letterSprite = GetComponentInChildren<SpriteRenderer>();
-		//text = GetComponentInChildren<TextMesh>();
 
 		float rotation = (Random.Range(0f, 1f) > .5f ? 1 : -1) * Random.Range(0f, 20f);
 		float stampRotation = (Random.Range(0f, 1f) > .5f ? 1 : -1) * Random.Range(0f, 8f) + rotation;

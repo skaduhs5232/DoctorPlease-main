@@ -6,7 +6,6 @@ public class Rotator : MonoBehaviour
 {
 	float time = 0;
 
-    // Update is called once per frame
     void Update()
     {
 		time += Time.deltaTime*1.2f;

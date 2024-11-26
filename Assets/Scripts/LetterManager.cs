@@ -54,11 +54,12 @@ public class LetterManager : MonoBehaviour
 	GameObject Jornal;
 	GameObject JornalX;
 	Button JornalXButton;
+	int semana = 1;
 
 	//Instruction note variables
 	Vector3 pos;
 	GameObject note;
-	GameObject fade;
+	GameObject semiFade;
 	GameObject ContinueCanvas;
 	Button continueButton;
 
@@ -241,17 +242,14 @@ public class LetterManager : MonoBehaviour
 
 		if (scorePennies >= 12 && !spawnedFakeStampNote)
 		{
-			//add fade aq
 			Jornalgenerator(2);
 		}
 		if (scorePennies >= 30 && !spawnedWrongAddressNote)
 		{
-			//add fade aq
 			Jornalgenerator(3);
 		}
 		if (scorePennies >= 55 && !spawnedWrongCityNote)
 		{
-			//add fade aq
 			Jornalgenerator(4);
 		}
 	}
@@ -348,8 +346,20 @@ public class LetterManager : MonoBehaviour
 
 	}
 
-	public void Jornalgenerator(int notenum)
-	{
+	public async void Jornalgenerator(int notenum)
+	{	
+		readytocontinue = false;
+		semana += 1;
+		GameObject fullfade = (GameObject)Instantiate(Resources.Load("FullFade"));
+		FullFadeScript fadeScript = fullfade.GetComponent<FullFadeScript>();
+		await Task.Delay(1300);
+		GameObject WeekCanvas = (GameObject)Instantiate(Resources.Load("WeekCanvas"));
+		Text Weektext = WeekCanvas.GetComponentInChildren<Text>();
+		Text Weektextt = Weektext.GetComponent<Text>();
+		Weektextt.text= "Semana " + semana.ToString();
+		await Task.Delay(2500);
+		Destroy(WeekCanvas);
+		fadeScript.fadeOut=true;
 		if(playererrors.Count==0)
 		{
 			//Lógica para a criação dos jornais bons
@@ -431,26 +441,25 @@ public class LetterManager : MonoBehaviour
 				break;
 		}
 			GetComponent<SoundManager>().PlaySound(ESound.New);
-			fade = (GameObject)Instantiate(Resources.Load("Fade"));
+			semiFade = (GameObject)Instantiate(Resources.Load("SemiFade"));
 			SpriteRenderer noteRenderer = note.GetComponent<SpriteRenderer>();
 			pos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.5f, 2.5f), -9.0f);
 			note.transform.position = pos;
 
 
 			await Task.Delay(700);
-			readytocontinue = false;
 			ContinueCanvas = (GameObject)Instantiate(Resources.Load("ContinueCanvas"));
 			continueButton = ContinueCanvas.GetComponentInChildren<Button>();
-			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, fade));
+			continueButton.onClick.AddListener(() => OnContinueButtonClick(continueButton, semiFade));
 
 			continueButton.GetComponent<ButtonFollowLetter>().SetLetterTransform(note.transform);
 	}
 	
-	public void OnContinueButtonClick(Button continueButton, GameObject fade)
+	public void OnContinueButtonClick(Button continueButton, GameObject semiFade)
 	{
 		readytocontinue = true;
 		Destroy(continueButton.gameObject);
-		Destroy(fade);
+		Destroy(semiFade);
 	}
 	
 }

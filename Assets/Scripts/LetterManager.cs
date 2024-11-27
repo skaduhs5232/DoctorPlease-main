@@ -67,8 +67,8 @@ public class LetterManager : MonoBehaviour
 	float letterValueCount = 0;
 
 	bool spawnedFakeStampNote = false;
-	bool spawnedWrongAddressNote = false;
-	bool spawnedWrongCityNote = false;
+	bool spawnedWrongNameNote = false;
+	bool spawnedWrongNISNote = false;
 	bool readytocontinue = false;
 
 	public int scorePennies { get; private set; } = 0;
@@ -78,6 +78,7 @@ public class LetterManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		Screen.SetResolution(1920, 1040, false);
 		if (instance == null)
 			instance = this;
 		else
@@ -244,11 +245,11 @@ public class LetterManager : MonoBehaviour
 		{
 			Jornalgenerator(2);
 		}
-		if (scorePennies >= 30 && !spawnedWrongAddressNote)
+		if (scorePennies >= 30 && !spawnedWrongNameNote)
 		{
 			Jornalgenerator(3);
 		}
-		if (scorePennies >= 55 && !spawnedWrongCityNote)
+		if (scorePennies >= 55 && !spawnedWrongNISNote)
 		{
 			Jornalgenerator(4);
 		}
@@ -316,8 +317,8 @@ public class LetterManager : MonoBehaviour
 
 		scoreText.text = "Credibilidade: " + totalScore.ToString("F2");
 		spawnedFakeStampNote = false;
-		spawnedWrongAddressNote = false;
-		spawnedWrongCityNote = false;
+		spawnedWrongNameNote = false;
+		spawnedWrongNISNote = false;
 
 
 		letterValueCount = 0;
@@ -411,7 +412,7 @@ public class LetterManager : MonoBehaviour
 
 			JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
 
-			JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);
+			JornalXButton.transform.position = new Vector3(1809.5f,992.5f,0);
 			playererrors = new List<int>();
 	}
 
@@ -436,12 +437,12 @@ public class LetterManager : MonoBehaviour
 				spawnedFakeStampNote=true;
 				break;
 			case 3:
-				note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
-				spawnedWrongAddressNote = true;
+				note = (GameObject)Instantiate(Resources.Load("NoteWrongName"));
+				spawnedWrongNameNote = true;
 				break;
 			case 4:
-				note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
-				spawnedWrongCityNote = true;
+				note = (GameObject)Instantiate(Resources.Load("NoteWrongNIS"));
+				spawnedWrongNISNote = true;
 				break;
 		}
 			GetComponent<SoundManager>().PlaySound(ESound.New);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class LetterGenerator : MonoBehaviour
@@ -17,14 +18,38 @@ List<string> surnames = new List<string>{ "Pereira", "Silva", "Lima", "Moraes", 
 											"Camargo", "Araujo", "Ribeiro", "Batista", "Barros", "Teixeira", "Muller", "Fischer", "Schneider",
 											"Carvalho", "Macedo", "Ferreira", "Borges", "Jaeger", "Ziegler" };
 
-List<string> symptoms = new List<string> { "Dor de cabeca", "Febre", "Tosse", "Fadiga", "Dor muscular", "Calafrios", "Dificuldade para respirar", "Dor no peito",
-													"Nausea", "Vomito", "Diarreia", "Perda de apetite", "Erupcao cutanea", "Fadiga", "Suores noturnos", "Congestao nasal",
-													"Dor abdominal", "Dores nas articulacoes", "Tontura", "Perda de olfato", "Confusao mental", "Olhos vermelhos", "Falta de ar", "Dor de garganta" };
-
-List<string> sicknes = new List<string> { "Enxaqueca e ->", "Gripe e ->", "Bronquite e ->", "Anemia e ->", "Fibromialgia e ->", "Malaria e ->", "Asma e ->", "Angina e ->",
-													"Gastrite e ->", "Vomito agudo e ->", "Gastroenterite e ->", "Hepatite e ->", "Dermatite e ->", "Sindrome da fadiga cronica e ->", "Tuberculose e ->",
-													"Sinusite e ->", "Apendicite e ->", "Artrite e ->", "Vertigem e ->", "COVID-19 e ->", "Demencia e ->", "Conjuntivite e ->", "DPOC e ->", "Faringite e ->" };
-
+    List<Tuple<string, List<string>>> diseaseSymptomPairs = new List<Tuple<string, List<string>>>
+    {
+        new Tuple<string, List<string>>("Enxaqueca", new List<string> { "Dor de cabeca", "Nausea", "Sensibilidade a luz" }),
+        new Tuple<string, List<string>>("Gripe", new List<string> { "Febre", "Tosse", "Dor no corpo", "Fadiga" }), 
+        new Tuple<string, List<string>>("Bronquite", new List<string> { "Tosse", "Dificuldade para respirar", "Chiado no peito" }), 
+        new Tuple<string, List<string>>("Anemia", new List<string> { "Fadiga", "Palidez", "Falta de ar" }),
+        new Tuple<string, List<string>>("Fibromialgia", new List<string> { "Dor muscular", "Cansaco extremo", "Disturbios do sono" }),
+        new Tuple<string, List<string>>("Malaria", new List<string> { "Calafrios", "Febre alta", "Suores intensos" }),
+        new Tuple<string, List<string>>("Asma", new List<string> { "Dificuldade para respirar", "Chiado no peito", "Tosse", "Falta de ar" }),
+        new Tuple<string, List<string>>("Angina", new List<string> { "Dor no peito", "Falta de ar", "Suor frio" }),
+        new Tuple<string, List<string>>("Gastrite", new List<string> { "Dor abdominal", "Nausea", "Azia" }),
+        new Tuple<string, List<string>>("Vomito agudo", new List<string> { "Vomito", "Nausea", "Dor abdominal" }), 
+        new Tuple<string, List<string>>("Gastroenterite", new List<string> { "Diarreia", "Colicas", "Nausea" }),
+        new Tuple<string, List<string>>("Hepatite", new List<string> { "Perda de apetite", "Ictericia", "Dor abdominal" }),
+        new Tuple<string, List<string>>("Dermatite", new List<string> { "Erupcao cutanea", "Coceira", "Vermelhidao" }), 
+        new Tuple<string, List<string>>("Sindromeda fadiga cronica", new List<string> { "Fadiga", "Dor muscular" }),
+        new Tuple<string, List<string>>("Tuberculose", new List<string> { "Tosse", "Suores noturnos", "Perda de peso", "Falta de apetite" }),
+        new Tuple<string, List<string>>("Sinusite", new List<string> { "Congestao nasal", "Dor facial", "Dor de cabeca" }),  
+        new Tuple<string, List<string>>("Apendicite", new List<string> { "Dor abdominal", "Nausea", "Febre" }),  
+        new Tuple<string, List<string>>("Artrite", new List<string> { "Dores nas articulacoes", "Inchaco nas articulacoes", "Dificuldade de movimento" }), 
+        new Tuple<string, List<string>>("Vertigem", new List<string> { "Tontura", "Sensacao de desequilibrio", "Nausea" }), 
+        new Tuple<string, List<string>>("COVID-19", new List<string> { "Falta de ar", "Febre", "Tosse", "Fadiga", "Perda de olfato" }),
+        new Tuple<string, List<string>>("Conjuntivite", new List<string> { "Olhos vermelhos", "Coceira nos olhos", "Secrecao ocular" }), 
+        new Tuple<string, List<string>>("Faringite", new List<string> { "Dor de garganta", "Dificuldade para engolir", "Febre" }),
+        new Tuple<string, List<string>>("Pneumonia", new List<string> { "Dificuldade para respirar", "Tosse com secrecao", "Febre alta" }),
+        new Tuple<string, List<string>>("Hipotireoidismo", new List<string> { "Cansaco", "Ganho de peso", "Sensibilidade ao frio" }),
+        new Tuple<string, List<string>>("Diabetes Tipo 2", new List<string> { "Sede excessiva", "Fome constante", "Cansaco", "Visao turva" }),
+        new Tuple<string, List<string>>("Acidente Vascular Cerebral (AVC)", new List<string> { "Fraqueza em um lado do corpo", "Dificuldade para falar", "Perda de equilibrio" }),
+        new Tuple<string, List<string>>("Hernia de disco", new List<string> { "Dor nas costas", "Formigamento nas pernas", "Dificuldade de movimento" }),
+		 new Tuple<string, List<string>>("Doenca de Alzheimer", new List<string> { "Perda de memoria", "Confusao mental", "Dificuldade para falar" }),
+        new Tuple<string, List<string>>("Doenca de Parkinson", new List<string> { "Tremores", "Rigidez muscular", "Dificuldade de movimento" })
+    };
 List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
 		"416987342580004",  "429017364570003","436789234570002","445987102830006","457432198620001",  "465789234670007","479013847260008",
 		"485172936480003","497603184570002","508793617450004","512073984620001","523098741620006","537461029340002","543897612340009",
@@ -70,15 +95,16 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 	{
 		string firstName = PickRandomFromList(firstNames) + " ";
 		string surname = PickRandomFromList(surnames);
-		string sickness = PickRandomFromList(sicknes) + " ";
-		string symptom = PickRandomFromList(symptoms);
+ 		var diseaseSymptom = PickRandomFromList(diseaseSymptomPairs);
+        string disease = diseaseSymptom.Item1;
+        string symptom = PickRandomFromList(diseaseSymptom.Item2);;
 		string NISS = PickRandomFromList(NIS);
 
-		EDeliveryType type = Random.Range(0f, 1f) >= .65f ? EDeliveryType.FirstClass : EDeliveryType.SecondClass;
+		EDeliveryType type = UnityEngine.Random.Range(0f, 1f) >= .65f ? EDeliveryType.FirstClass : EDeliveryType.SecondClass;
 
 		bool isLetterValid = true;
 
-		value = Random.Range(1, baseFakeValue + 1 + difficulty);
+		value = UnityEngine.Random.Range(1, baseFakeValue + 1 + difficulty);
 
 		//first couple letters guaranteed to be right
 		if (LetterManager.instance.scorePennies < 3 && LetterManager.instance.scorePounds < 1)
@@ -97,12 +123,12 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 					break;
 				case baseFakeValue + 1:
 					//fake stamp
-					type = Random.Range(0f, 1f) >= .5f ? EDeliveryType.FakeFirstClass : EDeliveryType.FakeSecondClass;
+					type = UnityEngine.Random.Range(0f, 1f) >= .5f ? EDeliveryType.FakeFirstClass : EDeliveryType.FakeSecondClass;
 					break;
 				case baseFakeValue + 2:
 					//wrong name
 					{
-						int roll = Random.Range(0, 2);
+						int roll = UnityEngine.Random.Range(0, 2);
 						if (roll == 0)
 							firstName = "";
 						else
@@ -110,11 +136,11 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 						break;
 					}
 				case baseFakeValue + 3:
-					//wrong Sickness
+					//wrong diseases
 					{
-						int roll = Random.Range(0, 2);
+						int roll = UnityEngine.Random.Range(0, 2);
 						if (roll == 0)
-							sickness = "";
+							disease = "";
 						else
 							symptom = "";
 						break;
@@ -127,7 +153,7 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 
 		}
 
-		string address = firstName + surname + "\n" + sickness + symptom + "\n" + NISS;
+		string address = firstName + surname + "\n" + disease + "->" + symptom + "\n" + NISS;
 		letterComponent.Initialise(address, isLetterValid, type, z , value);
 		createdletter = letterComponent;
 		z += .2f;
@@ -135,9 +161,9 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 			z = 0;
 	}
 
-	string PickRandomFromList(List<string> list)
+	private T PickRandomFromList<T>(List<T> list)
 	{
-		int index = Mathf.RoundToInt(Random.Range(0, list.Count));
+		int index = Mathf.RoundToInt(UnityEngine.Random.Range(0, list.Count));
 
 		return list[index];
 	}

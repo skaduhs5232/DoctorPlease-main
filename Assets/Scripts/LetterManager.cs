@@ -348,6 +348,7 @@ public class LetterManager : MonoBehaviour
 
 	public async void Jornalgenerator(int notenum)
 	{	
+		generator.SetDifficulty(semana);
 		readytocontinue = false;
 		semana += 1;
 		GameObject fullfade = (GameObject)Instantiate(Resources.Load("FullFade"));
@@ -432,12 +433,15 @@ public class LetterManager : MonoBehaviour
 				break;
 			case 2:
 				note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
+				spawnedFakeStampNote=true;
 				break;
 			case 3:
 				note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
+				spawnedWrongAddressNote = true;
 				break;
 			case 4:
 				note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
+				spawnedWrongCityNote = true;
 				break;
 		}
 			GetComponent<SoundManager>().PlaySound(ESound.New);

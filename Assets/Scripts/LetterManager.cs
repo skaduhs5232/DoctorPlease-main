@@ -15,6 +15,9 @@ public enum EState
 
 public class LetterManager : MonoBehaviour
 {
+
+[SerializeField] private Button PTButton;
+[SerializeField] private Button ENButton;
 	public LetterGenerator generator;
 	public Letter heldLetter;
 	public EBinType hoveredBin = EBinType.None;
@@ -65,19 +68,21 @@ public class LetterManager : MonoBehaviour
 
 
 	float letterValueCount = 0;
+	float totalScore = 0;
 
 	bool spawnedFakeStampNote = false;
-	bool spawnedWrongAddressNote = false;
-	bool spawnedWrongCityNote = false;
+	bool spawnedWrongNameNote = false;
+	bool spawnedWrongNISNote = false;
 	bool readytocontinue = false;
 
 	public int scorePennies { get; private set; } = 0;
 	public int scorePounds { get; private set; } = 0;
 
-
 	// Start is called before the first frame update
 	void Start()
 	{
+		semana = 1;
+		Screen.SetResolution(1920, 1080, true);
 		if (instance == null)
 			instance = this;
 		else
@@ -142,7 +147,7 @@ public class LetterManager : MonoBehaviour
 				Debug.Log("end");
 				endScreen.SetActive(true);
 				GetComponent<SoundManager>().StopClock();
-				float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+				totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
 
 				finalScoreText.text = "Credibilidade Final: " + totalScore.ToString("F2");
 			}
@@ -235,7 +240,7 @@ public class LetterManager : MonoBehaviour
 		}
 
 		// Criando a variável total que combina pounds e pennies, e multiplicando por 10
-		float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+		totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
 
 		// Exibindo o valor total multiplicado por 10 no scoreText
 		scoreText.text = "Credibilidade: " + totalScore.ToString("F2");
@@ -244,11 +249,11 @@ public class LetterManager : MonoBehaviour
 		{
 			Jornalgenerator(2);
 		}
-		if (scorePennies >= 30 && !spawnedWrongAddressNote)
+		if (scorePennies >= 30 && !spawnedWrongNameNote)
 		{
 			Jornalgenerator(3);
 		}
-		if (scorePennies >= 55 && !spawnedWrongCityNote)
+		if (scorePennies >= 55 && !spawnedWrongNISNote)
 		{
 			Jornalgenerator(4);
 		}
@@ -312,12 +317,12 @@ public class LetterManager : MonoBehaviour
 		cross5.SetActive(false);
 		scorePennies = 0;
 		scorePounds = 0;
-		float totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
+		totalScore = (scorePounds + (scorePennies / 100.0f)) * 10;
 
 		scoreText.text = "Credibilidade: " + totalScore.ToString("F2");
 		spawnedFakeStampNote = false;
-		spawnedWrongAddressNote = false;
-		spawnedWrongCityNote = false;
+		spawnedWrongNameNote = false;
+		spawnedWrongNISNote = false;
 
 
 		letterValueCount = 0;
@@ -348,6 +353,7 @@ public class LetterManager : MonoBehaviour
 
 	public async void Jornalgenerator(int notenum)
 	{	
+		gameplayScreen.SetActive(false);
 		generator.SetDifficulty(semana);
 		readytocontinue = false;
 		semana += 1;
@@ -368,8 +374,7 @@ public class LetterManager : MonoBehaviour
 		}
 		else
 		{
-			foreach(int playererror in playererrors)
-			{
+			int playererror = generator.PickRandomFromList(playererrors);
 				switch (playererror)
 				{
 					case LetterGenerator.baseFakeValue:
@@ -379,30 +384,29 @@ public class LetterManager : MonoBehaviour
 						break;
 					case LetterGenerator.baseFakeValue + 1:
 						//Selo errado
-						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 						Debug.Log(2);
 						break;
 					case LetterGenerator.baseFakeValue + 2:
 						//Nome errado e Sobrenome Errado
-						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 						Debug.Log(3);
 						break;
 					case LetterGenerator.baseFakeValue + 3:
 						//Doença errada
-						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 						Debug.Log(4);
 						break;
 					case LetterGenerator.baseFakeValue + 4:
 						//Nis errado
-						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 						Debug.Log(5);	
 						break;
 					default:
 						// Apagado errado
-						//Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
 						Debug.Log(6);
 						break;
-				}
 			}
 		}
 			Jornal.transform.position = new Vector3(0,0,-9);
@@ -411,13 +415,14 @@ public class LetterManager : MonoBehaviour
 
 			JornalXButton.onClick.AddListener(() => OnJornalXButtonClick(Jornal,JornalX,notenum));
 
-			JornalXButton.transform.position = new Vector3(1673.5f,833.5f,0);
+			JornalXButton.transform.position = new Vector3(1810.7f,992.5f,0);
 			playererrors = new List<int>();
 	}
 
 
 	public void OnJornalXButtonClick(GameObject jornal, GameObject JornalX , int notenum)
 	{
+		gameplayScreen.SetActive(true);
 		Destroy(JornalX);
 		Destroy(jornal);
 		notegenerator(notenum);
@@ -426,23 +431,47 @@ public class LetterManager : MonoBehaviour
 
 	public async void notegenerator(int notenum)
 	{	
-		switch(notenum)
+		if (!generator.English)
 		{
-			case 1:
-				note = (GameObject)Instantiate(Resources.Load("NoteStart"));
-				break;
-			case 2:
-				note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
-				spawnedFakeStampNote=true;
-				break;
-			case 3:
-				note = (GameObject)Instantiate(Resources.Load("NoteWrongAddress"));
-				spawnedWrongAddressNote = true;
-				break;
-			case 4:
-				note = (GameObject)Instantiate(Resources.Load("NoteWrongCity"));
-				spawnedWrongCityNote = true;
-				break;
+			switch(notenum)
+			{
+				case 1:
+					note = (GameObject)Instantiate(Resources.Load("NoteStart"));
+					break;
+				case 2:
+					note = (GameObject)Instantiate(Resources.Load("NoteFakeStamp"));
+					spawnedFakeStampNote=true;
+					break;
+				case 3:
+					note = (GameObject)Instantiate(Resources.Load("NoteWrongName"));
+					spawnedWrongNameNote = true;
+					break;
+				case 4:
+					note = (GameObject)Instantiate(Resources.Load("NoteWrongNIS"));
+					spawnedWrongNISNote = true;
+					break;
+			}
+		}
+		else
+		{
+			switch(notenum)
+			{
+				case 1:
+					note = (GameObject)Instantiate(Resources.Load("NoteStartEN"));
+					break;
+				case 2:
+					note = (GameObject)Instantiate(Resources.Load("NoteFakeStampEN"));
+					spawnedFakeStampNote=true;
+					break;
+				case 3:
+					note = (GameObject)Instantiate(Resources.Load("NoteWrongNameEN"));
+					spawnedWrongNameNote = true;
+					break;
+				case 4:
+					note = (GameObject)Instantiate(Resources.Load("NoteWrongNISEN"));
+					spawnedWrongNISNote = true;
+					break;
+			}
 		}
 			GetComponent<SoundManager>().PlaySound(ESound.New);
 			semiFade = (GameObject)Instantiate(Resources.Load("SemiFade"));
@@ -465,5 +494,38 @@ public class LetterManager : MonoBehaviour
 		Destroy(continueButton.gameObject);
 		Destroy(semiFade);
 	}
+	
+	public void OnLeaderboardButtonClick()
+	{
+		endScreen.SetActive(false);
+		startScreen.SetActive(false);
+		GameObject Leaderboardobj = (GameObject)Instantiate(Resources.Load("Leaderboard"));
+		Transform scoreTransform = Leaderboardobj.transform.Find("Current score num");
+    	Text scoreText = scoreTransform.GetComponent<Text>();
+    	scoreText.text = (totalScore*10).ToString();
+
+	}
+
+	public void ShowStartScreen()
+    {
+        startScreen.SetActive(true); // Activate the start screen
+    }
+
+
+public void OnPTButtonClick()
+{
+    generator.English = false;
+    // Get the Image component of the buttons and change their color
+    PTButton.GetComponent<Image>().color = new Color32(70, 70, 70, 255);  
+    ENButton.GetComponent<Image>().color = new Color32(173, 173, 173, 255);  
+}
+
+public void OnENButtonClick()
+{
+    generator.English = true;
+    // Get the Image component of the buttons and change their color
+    ENButton.GetComponent<Image>().color = new Color32(70, 70, 70, 255);
+    PTButton.GetComponent<Image>().color = new Color32(173, 173, 173, 255);
+}	
 	
 }

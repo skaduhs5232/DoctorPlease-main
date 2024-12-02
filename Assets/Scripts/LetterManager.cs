@@ -81,7 +81,7 @@ public class LetterManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		semana = 0;
+		semana = 1;
 		Screen.SetResolution(1920, 1080, true);
 		if (instance == null)
 			instance = this;

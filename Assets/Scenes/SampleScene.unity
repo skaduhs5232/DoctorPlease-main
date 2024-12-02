@@ -952,7 +952,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play Again?
+  m_Text: Leaderboard
 --- !u!222 &248156077
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2585,7 +2585,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Voc\xEA foi Demitido!"
+  m_Text: Voce foi Demitido!
 --- !u!222 &1107373652
 CanvasRenderer:
   m_ObjectHideFlags: 0

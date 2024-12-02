@@ -29,6 +29,10 @@ namespace LeaderboardCreatorDemo
 
         private void Start()
         {
+            foreach (UnityEngine.Object draggable in FindObjectsOfType<Dragabble>())
+            {
+                Destroy(((Dragabble)draggable).gameObject);
+            }
             if(English)
             {
                 inputname.text = "Input name";

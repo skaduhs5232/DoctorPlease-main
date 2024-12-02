@@ -5,6 +5,17 @@ using UnityEngine;
 
 public class LetterGenerator : MonoBehaviour
 {
+
+string firstName;
+string surname;
+Tuple<string, List<string>> diseaseSymptom;
+string disease;
+string symptom;
+string NISS;
+
+
+public bool English = false;
+
 List<string> firstNames = new List<string>{ "Joao", "Jessica", "Barbara", "Tomas", "Dafne",
 											"Jaime", "Sara", "Bruno", "Davi", "Jefferson", "Ana", "Lidia",
 											"Micaela", "Ana", "Lourenco", "Olavo", "Sofia", "Luiz",
@@ -50,6 +61,56 @@ List<string> surnames = new List<string>{ "Pereira", "Silva", "Lima", "Moraes", 
 		 new Tuple<string, List<string>>("Doenca de Alzheimer", new List<string> { "Perda de memoria", "Confusao mental", "Dificuldade para falar" }),
         new Tuple<string, List<string>>("Doenca de Parkinson", new List<string> { "Tremores", "Rigidez muscular", "Dificuldade de movimento" })
     };
+
+	List<string> firstNamesEN = new List<string>
+{
+    "James", "Emily", "Michael", "Sarah", "Jessica", "John", "Olivia", "David", "Sophia", "Joshua",
+    "Isabella", "Matthew", "Ava", "William", "Madison", "Benjamin", "Charlotte", "Samuel", "Grace",
+    "Daniel", "Zoe", "Ethan", "Chloe", "Alexander", "Lily", "Jacob", "Amelia", "Henry", "Megan",
+    "Lucas", "Evelyn", "Jack", "Ella", "Ryan", "Victoria"
+};
+
+List<string> surnamesEN = new List<string>
+{
+    "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez",
+    "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore",
+    "Jackson", "Martin", "Lee", "Perez", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis",
+    "Roberts", "Walker", "Young", "Allen", "King", "Scott"
+};
+
+List<Tuple<string, List<string>>> diseaseSymptomPairsEN = new List<Tuple<string, List<string>>>
+{
+    new Tuple<string, List<string>>("Migraine", new List<string> { "Headache", "Nausea", "Light sensitivity" }),
+    new Tuple<string, List<string>>("Flu", new List<string> { "Fever", "Cough", "Body aches", "Fatigue" }),
+    new Tuple<string, List<string>>("Bronchitis", new List<string> { "Cough", "Shortness of breath", "Wheezing" }),
+    new Tuple<string, List<string>>("Anemia", new List<string> { "Fatigue", "Paleness", "Shortness of breath" }),
+    new Tuple<string, List<string>>("Fibromyalgia", new List<string> { "Muscle pain", "Extreme fatigue", "Sleep disturbances" }),
+    new Tuple<string, List<string>>("Malaria", new List<string> { "Chills", "High fever", "Severe sweating" }),
+    new Tuple<string, List<string>>("Asthma", new List<string> { "Shortness of breath", "Wheezing", "Cough", "Difficulty breathing" }),
+    new Tuple<string, List<string>>("Angina", new List<string> { "Chest pain", "Shortness of breath", "Cold sweat" }),
+    new Tuple<string, List<string>>("Gastritis", new List<string> { "Abdominal pain", "Nausea", "Heartburn" }),
+    new Tuple<string, List<string>>("Acute Vomiting", new List<string> { "Vomiting", "Nausea", "Abdominal pain" }),
+    new Tuple<string, List<string>>("Gastroenteritis", new List<string> { "Diarrhea", "Cramping", "Nausea" }),
+    new Tuple<string, List<string>>("Hepatitis", new List<string> { "Loss of appetite", "Jaundice", "Abdominal pain" }),
+    new Tuple<string, List<string>>("Dermatitis", new List<string> { "Skin rash", "Itching", "Redness" }),
+    new Tuple<string, List<string>>("Chronic Fatigue Syndrome", new List<string> { "Fatigue", "Muscle pain" }),
+    new Tuple<string, List<string>>("Tuberculosis", new List<string> { "Cough", "Night sweats", "Weight loss", "Loss of appetite" }),
+    new Tuple<string, List<string>>("Sinusitis", new List<string> { "Nasal congestion", "Facial pain", "Headache" }),
+    new Tuple<string, List<string>>("Appendicitis", new List<string> { "Abdominal pain", "Nausea", "Fever" }),
+    new Tuple<string, List<string>>("Arthritis", new List<string> { "Joint pain", "Swelling in joints", "Difficulty moving" }),
+    new Tuple<string, List<string>>("Vertigo", new List<string> { "Dizziness", "Feeling of imbalance", "Nausea" }),
+    new Tuple<string, List<string>>("COVID-19", new List<string> { "Shortness of breath", "Fever", "Cough", "Fatigue", "Loss of smell" }),
+    new Tuple<string, List<string>>("Conjunctivitis", new List<string> { "Red eyes", "Itching in the eyes", "Eye discharge" }),
+    new Tuple<string, List<string>>("Pharyngitis", new List<string> { "Sore throat", "Difficulty swallowing", "Fever" }),
+    new Tuple<string, List<string>>("Pneumonia", new List<string> { "Difficulty breathing", "Cough with phlegm", "High fever" }),
+    new Tuple<string, List<string>>("Hypothyroidism", new List<string> { "Fatigue", "Weight gain", "Sensitivity to cold" }),
+    new Tuple<string, List<string>>("Type 2 Diabetes", new List<string> { "Excessive thirst", "Constant hunger", "Fatigue", "Blurred vision" }),
+    new Tuple<string, List<string>>("Stroke", new List<string> { "Weakness on one side of the body", "Difficulty speaking", "Loss of balance" }),
+    new Tuple<string, List<string>>("Herniated Disc", new List<string> { "Back pain", "Numbness in the legs", "Difficulty moving" }),
+    new Tuple<string, List<string>>("Alzheimer's Disease", new List<string> { "Memory loss", "Mental confusion", "Difficulty speaking" }),
+    new Tuple<string, List<string>>("Parkinson's Disease", new List<string> { "Tremors", "Muscle stiffness", "Difficulty moving" })
+};
+
 List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345178320004","314983645870006","327109283760003","339471087520001","341985672430007","357634178900008","369172087540004","374120938760003",  "382765478340006",  "395083761420002","404398572610009",
 		"416987342580004",  "429017364570003","436789234570002","445987102830006","457432198620001",  "465789234670007","479013847260008",
 		"485172936480003","497603184570002","508793617450004","512073984620001","523098741620006","537461029340002","543897612340009",
@@ -93,12 +154,21 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 
 	public void Generate(Letter letterComponent)
 	{
-		string firstName = PickRandomFromList(firstNames) + " ";
-		string surname = PickRandomFromList(surnames);
- 		var diseaseSymptom = PickRandomFromList(diseaseSymptomPairs);
-        string disease = diseaseSymptom.Item1;
-        string symptom = PickRandomFromList(diseaseSymptom.Item2);;
-		string NISS = PickRandomFromList(NIS);
+		if(!English)
+		{
+		firstName = PickRandomFromList(firstNames) + " ";
+		surname = PickRandomFromList(surnames);
+ 		diseaseSymptom = PickRandomFromList(diseaseSymptomPairs);
+		}
+		else
+		{ 
+		firstName = PickRandomFromList(firstNamesEN) + " ";
+		surname = PickRandomFromList(surnamesEN);
+ 		diseaseSymptom = PickRandomFromList(diseaseSymptomPairsEN);
+		}
+        disease = diseaseSymptom.Item1;
+		symptom = PickRandomFromList(diseaseSymptom.Item2);
+		NISS = PickRandomFromList(NIS);
 
 		EDeliveryType type = UnityEngine.Random.Range(0f, 1f) >= .65f ? EDeliveryType.FirstClass : EDeliveryType.SecondClass;
 
@@ -153,15 +223,15 @@ List<string> NIS = new List<string>{"277056876540008","287120984760002", "296345
 
 		}
 
-		string address = firstName + surname + "\n" + disease + "->" + symptom + "\n" + NISS;
-		letterComponent.Initialise(address, isLetterValid, type, z , value);
+		string wholetext = firstName + surname + "\n" + disease + "\n" + symptom + "\n" + NISS;
+		letterComponent.Initialise(wholetext, isLetterValid, type, z , value);
 		createdletter = letterComponent;
 		z += .2f;
 		if (z > 8.5)
 			z = 0;
 	}
 
-	private T PickRandomFromList<T>(List<T> list)
+	internal T PickRandomFromList<T>(List<T> list)
 	{
 		int index = Mathf.RoundToInt(UnityEngine.Random.Range(0, list.Count));
 

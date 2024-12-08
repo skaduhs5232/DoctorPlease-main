@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4381557546650969008}
   - component: {fileID: 6769025532766087322}
   m_Layer: 0
-  m_Name: Jornal-1
+  m_Name: Jornal-4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 220229077408233507, guid: 8f2ed37d0f3706c49b85c25b2f6098f2, type: 3}
+  m_Sprite: {fileID: -4946573249983050776, guid: c51ec1b1583c81a4fba92e7b163d0764, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

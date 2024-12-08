@@ -354,7 +354,14 @@ public class LetterManager : MonoBehaviour
 	public async void Jornalgenerator(int notenum)
 	{	
 		gameplayScreen.SetActive(false);
+		if (semana == 1)
+		{
 		generator.SetDifficulty(semana);
+		}
+		else
+		{
+			generator.SetDifficulty(semana+1);
+		}
 		readytocontinue = false;
 		semana += 1;
 		GameObject fullfade = (GameObject)Instantiate(Resources.Load("FullFade"));

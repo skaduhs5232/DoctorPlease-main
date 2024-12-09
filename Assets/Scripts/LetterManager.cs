@@ -354,7 +354,14 @@ public class LetterManager : MonoBehaviour
 	public async void Jornalgenerator(int notenum)
 	{	
 		gameplayScreen.SetActive(false);
+		if (semana == 1)
+		{
 		generator.SetDifficulty(semana);
+		}
+		else
+		{
+			generator.SetDifficulty(semana+1);
+		}
 		readytocontinue = false;
 		semana += 1;
 		GameObject fullfade = (GameObject)Instantiate(Resources.Load("FullFade"));
@@ -370,7 +377,7 @@ public class LetterManager : MonoBehaviour
 		if(playererrors.Count==0)
 		{
 			//Lógica para a criação dos jornais bons
-			Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,8)));
+			Jornal = (GameObject)Instantiate(Resources.Load("Jornal-" + UnityEngine.Random.Range(7,11)));
 		}
 		else
 		{
@@ -384,27 +391,27 @@ public class LetterManager : MonoBehaviour
 						break;
 					case LetterGenerator.baseFakeValue + 1:
 						//Selo errado
-						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-2"));
 						Debug.Log(2);
 						break;
 					case LetterGenerator.baseFakeValue + 2:
 						//Nome errado e Sobrenome Errado
-						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-3"));
 						Debug.Log(3);
 						break;
 					case LetterGenerator.baseFakeValue + 3:
 						//Doença errada
-						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-4"));
 						Debug.Log(4);
 						break;
 					case LetterGenerator.baseFakeValue + 4:
 						//Nis errado
-						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-5"));
 						Debug.Log(5);	
 						break;
 					default:
 						// Apagado errado
-						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-1"));
+						Jornal = (GameObject)Instantiate(Resources.Load("Jornal-6"));
 						Debug.Log(6);
 						break;
 			}

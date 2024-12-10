@@ -310,6 +310,7 @@ public class LetterManager : MonoBehaviour
 
 	public async void Reset()
 	{
+		semana = 1;
 		cross1.SetActive(false);
 		cross2.SetActive(false);
 		cross3.SetActive(false);
